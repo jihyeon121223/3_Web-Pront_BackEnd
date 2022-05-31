@@ -1,0 +1,355 @@
+## 필요모둘 임포트 ###처음은 당연히 임포트로 시작하고,
+import pandas as pd  ###파이썬 데이터 처리를 위한 라이브러리
+###dash:데이터 앱을 빠르게 구축하기 위한 로우 코드 프레임워크, 웹 브라우저에서 렌더링되어 URL을 통해 공유할 수 있습니다.
+from dash import Dash, dcc, html, Input, Output, State #dcc를 통해 마크다운 문법"""{글}"""
+import plotly.express as px   ###ploytly 라이브러리는 pandas 기능과 조합해 최신의 차트를 빠르게 시각화
+### express는 미들웨어로 요청-응답 주기 중 액세스 권한을 가진 함수(데이터와 크기를 보냄)
+import pymysql   ###MySQL DB 를 지원하는 Python 모듈
+from sqlalchemy import create_engine, text   ####ORM(Object-relational maping) 객체(Object)와 관계(Relation)를 연결
+###객체지향 언어로 DB를 접근할 수 있는데 그중 파이썬에서 사용하는것이 SQLAlchemy, 
+###SQL 문법 없이 개발 중인 언어로 데이터베이스에 접근할 수 있게 해주는 라이브러리
+
+
+
+## 데이터베이스 연결 ###create_engine이라는 메소드(클래스 안에 선언된 클래스가 가지고 있는 기능)로 DB를 정의한다.
+#접속정보  ### 다른 DB라면 별도의 접속정보를 명기해야한다.
+user = "bigdata"
+password = "Bigdata123!!"
+host = "192.168.56.101"
+port = "3306"
+db = "SampleDB"
+
+#접속 스크립트
+conn_script = f"mysql+pymysql://{user}:{password}@{host}:{port}/{db}"
+#"mysql+pymysql://bigdata:Bigdata123!!@localhost:3306/SampleDB"
+#connection instance
+engine = create_engine(conn_script)   #이제 메모리에 인식 시키는 상황,  DB에 정의
+conn = engine.connect()
+
+
+
+qry = "select year, sum(pop) as pop from world group by year" #어떤 데이터를 넣을 건지 선택
+df = pd.read_sql(qry,conn)
+fig = px.line(df,x="year",y="pop")
+fig
+
+
+
+country = pd.read_sql("select distinct country from world", conn)  ##dash에 넣을 클릭형 리스트를 따로 정의한다(그냥 그게 편해서)
+country = country.loc[:,"country"].tolist()  ##tolist:같은 위치에 있는 데이터끼리 묶어준다 loc:인덱스 기준으로 행 데이터 읽기
+country = list(set(country))   ##set:중복되지 않은 정보를 가져와서 list:리스트 형식으로 바꿀거야
+
+
+
+## dash application 구성 (front end)
+app = Dash(__name__)    #dash중요*****
+app.layout = html.Div(    #나누고 numer분자 denom분모, 몫과 나머지를 계산
+    [
+        html.H4("년도별 인구수 변화"),  #크기 별 제목태그
+        #html.P(), 대신 선택으로 바꿔볼게  #P()한 줄 띄우기
+        dcc.RadioItems(id="radio-items",  
+                       ###The values and labels of the RadioItems is specified in the `options`
+                       ###seleced item is specified with the `value` property
+                           options = ['라인그래프', '막대그래프','파이그래프'],
+                           value = "라인그래프",  ###이건 첫번째로 보이는 값이지만, 옵션에서 선택된 값이 밸류로 지정된다.
+                           inline = True  ###스크린을 꽉 채운 버튼을 작은 버튼으로 만들고자 할 때
+                          ),
+        dcc.Dropdown(id="dropdown-items",   ###for selecting one or more items.
+                     options = [{"label":i, "value":i} for i in country ]),
+        html.Hr(), #구분선, 수평선 
+        dcc.Graph(id="plot-graph")
+                # , figure = fig) #그래프기준선 만듦
+    ]
+
+)
+
+#app.run_server(host=host,port=2424)
+
+
+
+## backend
+@app.callback(  ###어플리케이션 인터페이스의 "입력"및 "출력"은 @app.callback 데코레이터의 인수로 선언적으로 표현
+                ###함수 인수도 어떤 이름이든 사용할 수 있다. 하지만 인수의 순서는 맞춰줘야 한다.
+                ###데코레이터와 함수 정의 사이에 빈 줄이 있으면 콜백 등록이 되지 않는다.
+    Output("plot-graph","figure"),
+    Input("radio-items","value"),
+    Input("dropdown-items","value")
+)
+def updata_graph(graph_type,country):
+    if country == None:
+        stmt = "select year, sum(pop) as pop from world group by year"
+    else:
+        stmt = f"select year, sum(pop) as pop from world where country = '{country}' group by year"
+    df = pd.read_sql(stmt,conn)
+    if graph_type == "라인그래프":
+        fig = px.line(df,x="year",y="pop")
+    elif graph_type == "막대그래프":
+        fig = px.bar(df,x="year",y="pop")
+    else:
+        fig = px.pie(df,values="pop",names="year") #어짜피 나라별 인구수만 달라지고 년도는 달라지는게 아니니깐.
+    return fig 
+
+
+#df = pd.read_sql("select year, country, sum(pop) as pop from world gruop by year, country",conn) 한개 있을 때 쓰는거 
+
+
+    ## 서버구동
+app.run_server(host=host,port=2424)
+
+
+###그래프 정상 작동 테스트
+def updata_graph(graph_type,country):
+    if country == None:
+        stmt = "select year, sum(pop) as pop from world group by year"
+    else:
+        stmt = f"select year, sum(pop) as pop from world where country = '{country}' group by year"
+    df = pd.read_sql(stmt,conn)
+    if graph_type == "라인그래프":
+        fig = px.line(df,x="year",y="pop")
+    elif graph_type == "막대그래프":
+        fig = px.bar(df,x="year",y="pop")
+    else:
+        fig = px.pie(df,values="pop",names="year")
+    return fig 
+
+    updata_graph("막대그래프","France")
+
+
+
+---------------------------------------------------------
+df = px.data.gapminder()   ###스웨덴의 비영리 통계분석 서비스로 필요한 자료를 가져와 쓸 수 있다
+df.columns  ###자료에 뭐뭐있는지 확인
+df.dtypes   ### 자료의 타입 확인
+df.country.unique()   ###해당 목록에 있는 정보 확인
+df.head()   ###데이터를 확인하는 방법으로 기본값은 n=5이다. (5줄 기본)
+
+###한 나라를 골라 그래프 확인하기
+korea = df.loc[df.country == 'Korea, Rep.',:]
+korea
+fig = px.bar(korea, x='year', y='pop')
+fig.show()
+
+###사이트 만들기
+app = Dash(__name__)
+app.layout = html.Div(
+    [
+        html.H3("대한민국 년도별 인구수변화"),
+        html.Hr(),
+        dcc.Graph(id='111',      ###식별자(id)가 가져온다
+                  figure = fig),
+        generate_table(korea)
+    ]
+)
+
+app.run_server(host="192.168.56.101",port=1111)
+
+###사이트에 인구자료를 그래프로 나타내기
+app = Dash(__name__)
+app.layout = html.Div(
+    [
+        html.H3("국가의 인구변화"),
+        dcc.Dropdown(id="dropdown-nation",
+                     options = [{"label":country,"value":country} for country in df.country.unique()]),
+        html.Hr(),
+        dcc.Graph(id='dcc-graph'),
+     ]
+                     
+ )
+
+@app.callback(
+    Output("dcc-graph","figure"),
+    Input("dropdown-nation","value")
+)
+def update_graph(nation):
+    stmt = f"select * from world where country = '{nation}'"
+    df = pd.read_sql(stmt,conn)
+    fig = px.bar(df,x="year", y="pop")
+    return fig
+
+app.run_server(host="192.168.56.101",port=7777)
+
+
+### 자료 여러개 넣을 때
+app = Dash(__name__)
+app.layout = html.Div(
+    [
+        html.H3("대한민국 년도별 인구수변화"),
+        dcc.Dropdown(id="dropdwon-nation",
+                     options=[
+                          {"label" :'Afghanistan',"value":'Afghanistan'}, 
+                          {"label" :'Albania',"value":'Albania'}, 
+                          {"label" :'xxxxxx',"value":'Algeria'}
+                     ]),
+        html.Hr(),
+        dcc.Graph(id='111',
+                  figure = fig),
+    ]
+)
+
+app.run_server(host="192.168.56.101",port=1111)
+----------------------------------------------------------
+
+
+
+###테이블 생성
+1. 엔진에 접속한다
+engine = create_engine("mysql+pymysql://bigdata:Bigdata123!!@localhost:3306/SampleDB")
+conn = engine.connect()
+2. 추가할 정보의 기준점 복붙
+stmt = """
+create table world(
+country       varchar(50),
+continent     varchar(50),
+year           int,
+lifeExp      float,
+pop            int,
+gdpPercap    float,
+iso_alpha     varchar(10),
+iso_num        int)
+"""
+conn.execute(text(stmt))
+3.sql정보 프레임 불러오기
+pd.read_sql("select column_name from information_schema.columns where table_name = 'world'",conn)
+###읽어오는 sql은 엔터치면 인식불가.
+4.정보 추가하기
+insert_stmt = """
+insert into world (
+country       ,
+continent     ,
+year          ,
+lifeExp       ,
+pop           ,
+gdpPercap     ,
+iso_alpha     ,
+iso_num        
+)values(
+:country(추가)       ,
+:continent(추가)     ,
+:year(추가)          ,
+:lifeExp(추가)       ,
+:pop(추가)           ,
+:gdpPercap(추가)     ,
+:iso_alpha(추가)     ,
+:iso_num(추가)        
+)
+"""
+
+for dt in df.to_dict("records"):
+    conn.execute(text(insert_stmt),**dt)
+
+
+4-1. 정보 추가하기
+첫번째 = input("학번")
+두번째 = input("이름")
+세번째 = int(input("점수"))
+stmt = """
+insert into 학생평가(
+학번,
+이름,
+점수
+)values(
+:x1,
+:x2,
+:x3
+)
+"""
+df1 = pd.read_sql("select count(*) as cnt from 학생평가",conn) ###sql문을 읽으려면 pandas가 필요해
+df1 = df1.loc[:,'cnt'][0]
+dt = {"x1":첫번째,"x2":두번째,"x3":세번째}
+conn.execute(text(stmt),**dt) ###Eval하나의 식을 계산하여 반환, Execute문자열을 코드로 실행
+df = pd.read_sql("select count(*) as cnt from 학생평가",conn)
+df = df.loc[:,'cnt'][0]
+if df > df1:
+        print(f'{두번째}학생정보의 입력이 잘 되었습니다')
+
+4-2. 자동으로 학번 추가하기
+stmt = """
+select max(학번) as max  #최고값의 학번을 뽑아서(데이터desc보면 char임)
+ from 학생평가
+"""
+str(int(pd.read_sql(stmt,conn).loc[:,'max'][0])+1) #숫자로 변환해 더하고 다시 문자로
+---
+두번째 = input("이름")
+세번째 = int(input("점수"))
+
+stmt = """
+select max(학번) as max
+ from 학생평가
+"""
+첫번째=str(int(pd.read_sql(stmt,conn).loc[:,'max'][0])+1)
+
+stmt = """
+insert into 학생평가(        ####insert는 low단위로 움직인다. 한 칸만 없앨 수 없음.
+학번,
+이름,
+점수
+)values(
+:x1,
+:x2,
+:x3
+)
+"""
+df1 = pd.read_sql("select count(*) as cnt from 학생평가",conn)
+df1 = df1.loc[:,'cnt'][0]
+dt = {"x1":첫번째,"x2":두번째,"x3":세번째}
+conn.execute(text(stmt),**dt) ###합치려는 정보가 같은 타입이면 굳이 바꿀 필요는 없다. **는 딕셔너리로 만들어줌.
+df = pd.read_sql("select count(*) as cnt from 학생평가",conn)
+df = df.loc[:,'cnt'][0]
+if df > df1:
+        print(f'{두번째}학생정보의 입력이 잘 되었습니다')
+
+###4-3 점수별 조건
+df1 = df.loc[(df.점수 % 3 == 0) & (df.점수 % 5 == 0),:]
+------
+stmt = """
+select *
+ from 학생평가
+where 점수 %% 3 =0
+ and 점수 %% 5 =0
+"""
+sum(pd.read_sql("select * from 학생평가1",conn).점수) == sum(pd.read_sql(stmt,conn).점수)
+
+###새론준 정보랑 기존 정보 합치기
+
+qry = """
+select table_name,
+       column_name, 
+       case when
+        data_type = 'int'
+       then
+        data_type
+       else 
+       concat(data_type,'(',character_maximum_length,')') end as col
+ from information_schema.columns
+where table_schema = 'SampleDB'
+    and table_name = '사원'
+"""
+pd.read_sql(qry,conn)  ###Oracle DB에 Python으로 접속하여 SQL query 해서 pandas DataFrame 만들기
+
+###새론준 정보랑 기존 정보 합치기
+insert_stmt = """
+insert into 학생평가1(
+학번,
+이름,
+점수,
+조이름
+) values(
+:학번,
+:이름,
+:점수,
+:조이름
+)
+"""
+i=0
+for dt in df1.to_dict("records"):  ###딕셔너리{}로 만들었다. 
+    print(dt)
+    conn.execute(text(insert_stmt),**dt)  ### 사전병합, 여러 개의 사전을 합쳐야할 때는 ** 연산자를 사용하여, 
+                                          ###중괄호 안에 합칠 사전들을 쉼표(,)로 구분하여 나열하면 됩니다.  
+    ###conn = engine.connect()로 줌
+    ###dt = {"x1":첫번째,"x2":두번째,"x3":세번째}
+
+
+5. sql전체 정보 확인
+pd.read_sql("select * from world",conn)
+
+

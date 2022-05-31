@@ -1,0 +1,39 @@
+select a.mdate, 
+       a.team1, 
+		 a.score, 
+		 b.team2, 
+		 b.score
+FROM (select mdate, team1, sum(score) as score
+       FROM (select a.mdate, 
+                    ifnull(b.teamid, a.team1) as team1,
+                    case when
+                    b.teamid is not null
+                    then 
+                     1
+                    else
+                      0
+                    end score
+              from game a left outer join goal b
+               on a.id = b.matchid and b.teamid = a.team1) a
+      group by a.mdate, a.team1) a,
+      (select mdate, team2, sum(score) as score
+        FROM (select a.mdate, 
+                     ifnull(b.teamid, a.team2) as team2,
+                     case when
+                     b.teamid is not null
+                     then 
+                      1
+                     else
+                      0
+                     end score
+               from game a left outer join goal b
+                   on a.id = b.matchid and b.teamid = a.team2) a
+      group by a.mdate, a.team2) b, game c
+where a.mdate = b.mdate 
+  AND c.mdate = a.mdate 
+  AND c.team1 = a.team1
+  AND c.team2 = b.team2
+ORDER BY a.mdate, c.id;  
+
+
+

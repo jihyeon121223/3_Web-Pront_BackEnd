@@ -1,0 +1,118 @@
+python 버전
+conda 에서 (가상환경)독립환경 설정
+-- web 가상환경
+
+conda create -n web python=3.9 
+conda activate web
+python --version
+
+django -- 설치
+conda install django
+
+--web 기본 디렉토리 생성
+mkdir ~/www
+cd ~/www
+
+--장고 프로젝트(웹프로젝트) 생성
+django-admin startproject [웹사이트명 -> blog]
+cd blog
+웹사이트 트리 확인
+tree 
+
+코딩 - vscode 로 접속
+
+--settings.py
+ALLOWED_HOSTS = ['*']    ##ip,mysite.com
+LANGUAGE_CODE = 'ko-kr'
+TIME_ZONE = 'Asia/Seoul'
+
+--runserver
+python manage.py runserver 0.0.0.0:8888
+
+-- Model
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
+name:
+e-mail:
+password:
+
+
+conda install mysql
+
+django-admin startproject aaa
+
+-- Model
+python manage.py makemigrations
+python manage.py migrate
+
+--settings.py
+INSTALLED_APPS = [
+	aaa.apps.AAAConfig
+]
+
+(기존 DATABASES 복붙 후 기본꺼는 주석)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog',
+        'USER' : 'bigdata',
+        'PASSWORD' : 'Bigdata123!!',
+        'HOST' : '192.168.56.101',
+        'PORT' : '3306'
+    }
+}
+
+-- aaa/views.py
+def index(request):
+    return render(request,"index.html")
+
+-- aaa 폴더에 templates폴더 추가 후 
+index.html 파일 추가
+
+
+-- index.html 
+
+	양식에 맞게 작성 후
+	"intro 성공"을 바디에 작성
+
+-- blog/urls.py에 
+
+from aaa.views import index 모듈 추가
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('intro/',index),
+]
+
+추가
+
+-- 서버 연결 후 mysite.com:8888/intro 되는지 확인
+
+
+--------------------------추가사항-----------------------------
+
+---veiws.py의 텍스트를 index.html 에 표시하는 방법
+
+--veiws.py 에는 
+	from django.shortcuts import render
+
+	welcome_msg = {'text' : "Intro 성공 view 에서부터 오는 텍스트"}
+	def index(request):
+	    return render(request,"index.html",welcome_msg)
+	# Create your views here.
+
+--index.html
+	<!DOCTYPE html>
+
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Document</title>
+	</head>
+	<body>
+	    intro 성공<br>
+	    {{ text }}
+	</body>
+	</html>

@@ -1,0 +1,389 @@
+ 유닉스 계열 운영 체제의 명령어
+A    
+
+
+    1  ls   ###list segments 파일의 목록을 표시하는 기능을 수행(=도스에서의 dir)
+    2  ll   ###ls 명령어에 -l (long 옵션으로 상세히 출력) 옵션을 준 형태: ll = 'ls -l' 로 디폴트 값으로 지정
+    3  ls -al   ### 숨겨진 파일과 디렉토리의 내용을 자세히 출력 // ls -a 옵션 (all) : 숨겨진 파일이나 디렉토리도 보여준다.
+    4  yum install wget   ###Yellowdog Updater Modified 패키지 설치/삭제/업데이트 도구, wget 웹 상의 파일을 다운로드
+    5  sudo yum install wget   ###sudo(SuperUser DO) 일반 사용자가 root권한을 잠시 빌려 명령을 실행
+    8  sudo yum install wget   ###기본으로 제공해주지 않는 명령어들은 wget으로 다운을 받아서 사용
+    9  wget https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+   11  Anaconda3-2021.11-Linux-x86_64.sh   ###shell script: 파일로 작성 후, 파일을 실행하는 방식으로 권한을 가지고 있어야 함
+   12  pwd   ###print working directory 현재 작업 중인 디렉터리의 이름을 출력
+   20  ls
+   22  /etc/ls
+   23  $PATH
+   24  echo $PATH   ###실행파일의 경로를 잡아주는건 환경변수 세팅. echo $PATH: 환경변수들의 경로인 path를 출력하는 명령어. path들은 전부 : (콜론)으로 구별
+   29  chmod +x Anaconda3-2021.11-Linux-x86_64.sh   ###+ x 옵션(execute)으로 실행 권한 변경
+   30  ls -al
+   31  ./Anaconda3-2021.11-Linux-x86_64.sh 
+   32  conda
+   33  ls
+   35  cd anaconda3/bin
+   36  ./conda
+   37  cd
+   38  ~/anaconda3/bin/conda
+   39  ls -al
+   40  vi .bashrc   ###프롬프트(쉘)로 내용 설정변경. export PATH="$PATH:/usr/프로그램 경로/bin"를 추가한다 등: 리눅스에서 .bashrc 파일 수정 후 반드시 다시 로그인해야 적용.
+
+   42  source .bashrc   ###명령어를 실행하게 되면 터미널 종료 없이도 적용 가능
+   43  conda
+   44  ls
+   45  vi .bashrc
+   46  jupyter lab
+   48  sudo systemctl stop firewalld
+   49  sudo systemctl disable firewalld
+   50  jupyter lab --ip=192.168.56.101 --port=8888
+   51  jupyter lab --ip=192.168.56.101 --port=8888 --NotebookApp.token='' --NotebookApp.password=''
+   52  su -    ###su (Switch User) 현재 계정을 로그아웃하지 않고 다른 계정으로 전환. root 디렉토리(directory)로 이동. 환경 변수를 가져온다.
+   53  sudo yum is
+   54  sudo jhyu
+   55  sudo yum install wget
+   59  ls
+   60  nohup jupyter lab --ip=192.168.56.101 --port=8888 --NotebookApp.token='' --NotebookApp.password='' &
+   61  mkdir work_place   ###make directory (=폴더)
+   81  cd ..
+   82  cd work_place
+   83  cd ../sh
+   84  vi note
+   85  mv note.sh note
+   86  ps -ef | grep jupyter*
+   87  kill -9 17685
+   88  note
+   89  ls
+   90  cd
+   91  ls
+   92  ll
+   93  vi work_place
+   94  vi work_space
+   95  vi .bashrc
+   96  mkdir ~/work_place
+   97  cd ~/work_place
+   98  jupyter lab --ip=192.168.56.101 --port=8888 --NotebookApp.token='' --NotebookApp.password='' &
+   99  :wq
+  100  vi note
+  101  chmod +x note
+  108  vi ~/.bashrc
+  109  vi note
+  110  ls -al
+  111   mkdir ~/work_place
+  112  vi work_place
+  113  note
+  114  vi note
+  115  cd ~/work_place
+  116  nohup jupyter lab --ip=192.168.56.101 --port=8888 --NotebookApp.token='' --NotebookApp.password='' &
+  117  note
+  118  ll
+  119  note
+  120  vi ~/.bashrc
+  121  source ~/.bashrc
+  122  note
+  123  cd ../sh
+  124  ls
+  125  mv sh ../
+  126  ls
+  127  cd 
+  128  vi .bashrc
+  129  source .bashrc
+  130  mysql -u bigdata -p
+  131  wget https://downloads.mysql.com/docs/sakila-db.tar.gz
+  132  sakila.mwb
+  133  tar zxvf sakila-db.tar.gz   ###압축해제
+  134  sakila.mwb
+  135  sakila
+  136  sakila.mwb
+  137  cd sakila-db
+  138  mysql -u root   
+  139  note   ###노트실행
+  140  sourse sakila-schema.sql; 
+  141  sourse sakila-schema. sql;
+  142  mysql> sourse sakila-schema. sql;
+  143  mysql> sourse sakila-data. sql;
+  144  mysql -u root -p
+  145  su bigdata   ###su (Switch User) root 계정의 환경 변수를 가져오지 않고, 현재 계정의 환경 변수를 사용
+  146  ;
+  147  su Bigdata123;
+  148  su bigdata
+  149  sd
+  150  cd
+  151  su bigdata
+  152  su root
+  153  sudo yum install tree
+  154  tree | more
+  155  ls
+  156  ll
+  157  pwd   ###"print working directory"의 준말로, 컴퓨터의 명령 줄 인터페이스에서 현재 작업 중인 디렉터리의 이름을 출력
+  158  cat Untitled.ipynb   ###concatenate 또는 catenate  어떤 내용을 받아서 그냥 그대로 터미널 화면에 뿌려주는 역할
+  160  ll
+  161  cat address.csv
+  162  vi address.csv
+  164  vi age.csv
+  165  ll
+  166  ls
+  170  rm -f age.csv
+  171  rm -f address.csv
+  172  ls
+  173  cd
+  174  cd /var/log
+  175  cd ..
+  176  cd lib
+  177  ls
+  178  sudo ls
+  179  sudo ca sakila
+  180  sudo ls -al
+  181  ls
+  182  cd mysql
+  183  ls
+  184  sudo ls -al
+  185  cd
+  186  note
+  187  sudo ls -al
+  188  cd mysql
+  189  mysql -u bigdata -p
+  190  cd mysql
+  191  sudo ls
+  192  cd lib
+  193  cd /var/log
+  194  cd ..
+  195  ls
+  196  sudo ls -al
+  197  sudo mysql
+  198  mysql
+  199  cd
+  200  sudo mysql
+  201  cd lib
+  202  cd /var/log
+  203  cd ..
+  204  cd lib
+  205  cd mysql
+  206  mysql -u bigdata -p
+  207  ls
+  208  su _
+  209  su -
+  210  quit
+  211  cd
+  212  out
+  213  cd sh
+  214  cd ~
+  215  :q
+  216  pip install sqlalchemy
+  217  pip install pymysql
+  218  pip install dash
+  219  pip install plotly
+  220  ps -ef | grep jupyter
+  221  ps -ef | grep mysql
+  222  vi note
+  223  ping localhost   ###Paket Internet Groper의 약어이며, 컴퓨터 네트워크 상태를 점검, 진단
+  224  cd sh   
+  225  vi note
+  226  cd
+  227  sudo yum install vsftpd
+  228  sudo systemctl vsftpd
+  229  sh   ### 스크립트 파일을 실행
+  230  cd
+  231  :q
+  232  :wq
+  233  :qw
+  234  a
+  235  sh
+  236  note
+  237  mysql
+  238  desc test
+  239  sudo mysql
+  240  cd
+  241  mysql -u bigdata -p
+  242  help(dcc.Dropdown)
+  243  import dash_core_components as doc
+  244  note
+  245  note
+  246  pip install dash-bootstrap-components
+  247  note
+  248  curl https://patents.google.com/patent/KR20170102255A/ko?q=%EC%9E%90%EB%8F%99%EC%B0%A8&oq=%EC%9E%90%EB%8F%99%EC%B0%A8
+  249  ls
+  250  curl https://patents.google.com/patent/KR20170102255A/ko?q=%EC%9E%90%EB%8F%99%EC%B0%A8&oq=%EC%9E%90%EB%8F%99%EC%B0%A8 >>tmp.html
+  251  ls
+  252  curl naver.com > tmp.html
+  253  vi tmp.html
+  254  note
+  255  vscode
+  256  visual studio code
+  257  sudo yum install -y nginx
+  258  cd nginx   ###경량 웹 서버. 정적 파일을 응답해주는 HTTP Web Server로 활용, Reverse Proxy Server로 활용. WAS 서버의 부하를 줄일 수 있는 로드 밸런서.
+  259  sudo systemctl start nginx
+  260  netsat -tnlp
+  261  ls
+  262  sudo yum install  nginx
+  263  121223
+  264  vi nginx.conf   ###Unix Configuration File 여러 프로그램에서 사용하는 구성 파일. 소프트웨어 매개 변수, 사용자 및 기타 설정의 기본 설정을 포함함.
+  265  cd /usr/share/nginx
+  266  vi index.html
+  267  cd html
+  268  ls
+  269  vi index.html
+  270  cd nginx
+  271  vi index.html
+  272  cd /usr/share/nginx
+  273  cd/usr/share/nginx
+  274  ls
+  275  ll
+  276  cd html
+  277  cd ../../doc/HTML/
+  278  LS
+  279  l
+  280  ls
+  281  ll
+  282  ls
+  285  sudo vi index.html
+  286  cd html
+  287  cd index.html
+  288  note
+  289  yum install django
+  290  yum update
+  291  ssh jhyu@192.168.56.101 -p port_121223
+  292  yum install epel-release   ###Extra Packages for Enterprise Linux  각종 패키지의 최신 버전을 제공하는 community 기반의 저장소
+  293  yum install python-devel python-setuptools python-pip
+  294  pip install –upgrade pip   ###파이썬(python)으로 작성된 패키지 소프트웨어를 설치 · 관리하는 패키지 관리 시스템
+  295  pip install virtualenv
+  296  su - rose
+  297  cd ~
+  298  virtualenv django
+  299  source ~/django/bin/activate
+  300  pip install django
+  301  cd ~
+  302  django-admin startproject one
+  303  cd one
+  304  python manage.py migrate
+  305  python manage.py createsuperuser
+  306  note
+  307  sudo yum install centos-release-scl   ###설치방법 3가지: sudo yum update, sudo yum install centos-release-scl, sudo yum install rh-python36
+  308  mkdir my_django_app
+  309  cd my_django_app
+  310  scl enable rh-python36 bash
+  311  pip install django
+  312  cd
+  313  pip install django
+  314  python -m django --version
+  315  django-admin startproject mydjangoapp
+  316  tree  mydjangoapp/
+  317  cd mydjangoapp
+  318  python manage.py migrate
+  319  python manage.py createsuperuser
+  320  conda create -n django
+  321  source activate django
+  322  ls
+  323  ll
+  324  sudo yum install telnet
+  325  cd
+  326  telnet www.google.com 80
+  327  Host: www.google.com
+  328  sudo cd
+  329  sudo -
+  330  cd qw
+  331  cd ..
+  332  sudo jhyu
+  333  cd /
+  334  ssh   ###시큐어 셸(Secure SHell, SSH)은 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고 다른 시스템으로 파일을 복사할 수 있도록 해 주는 응용 프로그램 또는 그 프로토콜
+  335  ssh jhyu@192.168.56.101
+  336  ping www.google.com
+  337  sudo yum install telnet   ### Tele network의 합성어입니다. 원격에 있는 컴퓨터 등에 접속할 수 있는 것을 도와주는 서비스
+  338  sudo yum install telnet
+  339  sudo yum install vsftpd   ###CentOS에서 FTP서버는(Very Secure FTP Demon)로 제공 : root 계정으로 다음의 명령어를 실행
+  340  sudo systemctl start vsftd
+  341  sudo systemctl start vsftpd
+  342  cd root
+  343  ㅜㄷㅅㄴㅅㅁㅅ -쉬ㅔ
+  344  netstat -tnlp
+  345  root
+  346  ssh root@192.168.56.101
+  347  cd /usr/share/nginx/www
+  348  ls
+  349  ll
+  350  su - root
+  351  ls
+  352  pwd
+  353  ls
+  354  vi index.html
+  355  cd html
+  356  cd ..
+  357  ll
+  358  su -
+  359  su - root
+  360  note
+  361  cd /etc
+  362  vi
+  363  vi sudores
+  364  vi sudoers
+  365  sudo yum install epel
+  366  sudo yum update
+  367  yum install -y nginxyum
+  368  yum install  nginxyum
+  369  sudo yum install nginx
+  370  cd
+  371  nginx systemctl start nginx
+  372  sudo systemctl start nginx
+  373  netstat -nginx
+  374  cd /usr/share
+  375  ls
+  376  cd html
+  377  sudo html
+  378  cd
+  379  cd html
+  380  pwd
+  381  sudo html
+  382  git
+  383  ssh django@localhost
+  384  quit
+  385  git
+  386  python
+  387  cd /etc
+  388  sudo vi host
+  389  ping daum.net
+  390  git clone PING daum.net (121.53.105.193) 56(84) bytes of data.
+  391  git clone https://github.com/jihyeon121223/djangoAZ.git
+  392  cd
+  393  mkdir github
+  394  cd githubgit clone https://github.com/jihyeon121223/djangoAZ.git
+  395  cd
+  396  ls
+  397  unzip source.zip
+  398  unzip source.zip;
+  399  ls
+  400  unzip source.zip
+  401  ls
+  402  unzip source.zip
+  403  mkdir web_work
+  404  ls
+  405  cp -r source ./web_work sudo yum install unzip
+  406  sudo yum install unzip
+  407  unzip source.zip
+  408  mkdir web_work   ###새 디렉토리 만들기
+  409  cp -r source 
+  410  cp -r source ./web_work
+  411  cd web_work
+  412  cd
+  413  unzip source.zip
+  414  cp -r source ./web_work
+  415  cd web_work
+  416  cd mystie
+  417  cd mysite
+  418  ll
+  419  python startapp intro
+  420  python appstart intro
+  421  ls
+  422  rm -rf mysite
+  423  ls
+  424  conda activate webapp
+  425  conda deactivate
+  426  conda create -n blog
+  427  conda activate blog
+  428  conda install django
+  429  django-admin startproject blog
+  430  python manage.py runserver 0.0.0.0:8000
+  431  cd blog
+  432  ls
+  433  python manage.py runserver 0.0.0.0:8000
+  434  python manage.py makemigration daily
+  435  python manage.py makemigrations daily
+  436  python manage.py runserver 0.0.0.0:8000
+  437  history

@@ -1,0 +1,548 @@
+systemctl stop nginx  ###Computational Tree Logic, CTL 실행이 가능한 상태로의 경로를 트리 구조로 전개
+yum remove enginx   ###Yellodog Update Modified의 약자로 레드햇 계열의 리눅스 배포판에서 사용하는 프로그램(패키지) 설치 관리 도구
+
+systemctl start nginx   ###동시접속 처리에 특화된 웹 서버 프로그램이다. Apache 보다 동작이 단순하고, 전달자 역할
+netstat nginx
+cd /etc
+cd nginx
+ls
+ll
+
+--
+cd
+
+(root)
+
+cd /etc/
+ls ngin.rpmsave
+cd nginx
+ls
+cd ..
+rm -rf nginx (지우기)
+ls nginx(없대)
+cd /usr/share
+cd nginx
+ls
+cd ..
+rm -rf nginx (흔적없이 사라짐)
+cd /var
+cd log
+ls
+ls nginx (없대)
+
+--(다시깔기: 내 리눅스 아이디로 웹을 접속하기 위해, 이번엔 아파치 서비스를 이용)
+cd
+yum install httpd
+netstat -tnlp 
+systemctl start nginx(대신) systemctl start httpd
+netstat -tnlp (리슨 확인)
+>주소창>mysite.com(ip대신 만들었음 가야함) 서버 대문이 뜸
+(얘 찾아보기)
+cd /etc
+ll
+ls -lrt (시간순 설치파일 나옴)
+cd httpd
+ls
+cd conf
+ls
+vi httpd.conf
+>포트 80번 확인, var/www확인, :q
+cd /var/
+ls
+cd www
+ls
+cd html
+ls
+ll
+cd ..
+ls
+ll(root확인)
+cd html
+ls
+su - jhyu
+cd /var/www/html
+touch aaa >거부
+su -
+(root)
+cd /var/www
+ls
+ll
+chown jhyu:jhyu html
+ll
+su - jhyu
+cd /var/www/html
+vi index.html
+
+(아무거나 입력) :w
+>사이트에 mysite.com(또는 ip) 입력하면 입력한게 뜸
+
+>>>윈도우 커멘드 아나콘다 프롬프트(클라우드 파일질라 대신 윈도우에서 명령어로 넣는 방법)
+c:
+cd \
+cd seb-project
+dir
+ftp jhyu@192.169.56.101
+(sftp접속)
+put blog.html
+mput index.html about_me.html
+
+>>>다시 돌아와
+cd
+ls
+
+>>>
+put about_me.html jhyu@192.168.56.101:/var/www/html >ㄴㄴ
+
+>>>파일질라
+호스트 mysite.com
+사용자명 jhyu
+비번
+포트 22
+c드라이브 
+리모트사이트 /var/www/html 에 web-project옮기기
+
+>>>다시 돌아와
+cd /var/www/html
+ls (옮겨진 web-project확인)
+
+>>>사이트
+mysite.com/web-project/index.html
+
+
+>>>root
+yum install nginx
+systemctl start enginx
+cd /etc
+ll
+ls -rt (깔린거 확인)
+systemctl start nginx >>에러
+tail -f /var/log/nginx/error.log
+맨밑에===================적고 다른터미널에 nginx시작
+systemctl start nginx (80포트 쓰고있다 뜸)
+cd /etc/nginx
+vi nginx (리슨파일 두개의 80을 8080으로 바꾼다):wq
+systemctl start nginx (오류없)
+ls
+netstat
+
+>>>site
+mysite.com:8080 (이 포트에서 vi에 쓴거 뜸)
+mysite.com/web-project/index.html
+
+
+>>>>vscode주소창
+/var/www/html/web-project
+------------------(난 안뜸)
+cd nginx/
+chown jhyu:jhyu html
+(#권한//chown -R jhyu:jhyu (바꾸고싶은 폴더명)/ >>> -R은 폴도명 경로 및 하위파일 모두 권한 변경
+exit
+ls
+cd html
+cp /var/www/html/web-project/test2.html ./
+su -
+
+>>>site
+mysite.com:8080/test.html
+
+
+--------------------------------------
+chown -R jhyu:jhyu web-project/
+ll
+systemctl stop nginx
+cd /etc/nginx
+vi nginx.conf
+su - jhyu
+cd /etc/nginx
+vi nginx.conf
+(주소명과 포트바꾸기=고유주소 만들기)
+
+---------------------------------------(한글깨짐 밑에 해결)
+vi nginx 
+charset            utf-8;
+
+charset     utf-8;
+
+:q
+
+systemstl start nginx
+
+>>>mtsite.com:8080/test2.html
+>>>192.168.56.101:8080/test.html
+>>>
+
+
+
+
+
+
+
+
+
+
+------------------------------((())))
+    1  reboot
+    2  shutdown -h now
+    3  cd
+    4  cd~
+    5  cd ~
+    6  cs /
+    7  ls
+    8  cd /
+    9  ls
+   10  cd root
+   11  cd /
+   12  cd ~
+   13  ping google.com
+   14  cd /etc
+   15  ls
+   16  cd sysconf
+   17  cd sysconf ig
+   18  cd
+   19  clear
+   20  cd
+   21  cd /etc/sysconf ig/network-scrips/
+   22  cd /etc/sysconf ig/network-scripts/
+   23  cd/etc/sysconf ig/network-scripts/
+   24  cd
+   25  vi /etc/sysconfig/network
+   26  ls
+   27  vi anaconda-ks.cfg 
+   28  clear
+   29  root
+   30  clear
+   31  ls
+   32  cd ..
+   33  ls
+   34  cd ./etc/sysconfig/network-scripts/
+   35  ls
+   36  vi ifcfg-enp0s3
+   37  vi ifcfg-enp0s8
+   38  cd
+   39  ls
+   40  systemctl restart network
+   41  ping google.com
+   42  yum install net-tools
+   43  ifconfig
+   44  yum update
+   45  reboot
+   46  add user
+   47  adduser
+   48  clear
+   49  adduser jhyu
+   50  cd /
+   51  ls
+   52  cd home
+   53  ls
+   54  cd
+   55  cd /
+   56  ls
+   57  cd bin
+   58  ls
+   59  ls -al
+   60  cd ..
+   61  cd /etc
+   62  ls
+   63  cd
+   64  clear
+   65  cd /home
+   66  la
+   67  ls
+   68  cd
+   69  cd jhyu
+   70  ls
+   71  cd
+   72  adduser bigdata
+   73  cd /home
+   74  ll
+   75  cd
+   76  clear
+   77  passwd jhyu
+   78  cd /etc
+   79  ls sudoers
+   80  ls sudo*
+   81  ls -la sudo*
+   82  pwd
+   83  vi /etc/sudoers
+   84  chmod 540 sudoers
+   85  ls -al sudoers
+   86  chmod 640 sudoers
+   87  ls -al sudoers
+   88  chmod 440 sudoers
+   89  ls -al sudoers
+   90  chmod +w sudoers
+   91  ls -al sudoers
+   92  vi sudoers
+   93  ls -al sudoers
+   94  chmod 440 sudoers
+   95  ls -al sudoers
+   96  whoami
+   97  ssh jhyu@ 192.168.56.101
+   98  ssh jhyu@192.168.56.101
+   99  cd /etc
+  100  ls
+  101  ls -al sudoers
+  102  chmod +w sudoers
+  103  vi sudoers
+  104  chmod -w sudoers
+  105  su - jhy
+  106  su - jhyu
+  107  exit
+  108  su
+  109  su jhyu
+  110  mysql -u root -p
+  111  myaql -u bigdata -p
+  112  su mysql
+  113  show database
+  114  clear
+  115  q
+  116  cd ..
+  117  mysql -u root -p
+  118  mysql -u bigdata -p
+  119  mysql -u root -p
+  120  cd
+  121  shutdown
+  122  cd /etc/mysql
+  123  cd /
+  124  find .-name my.cnf
+  125  find . -name my.cnf
+  126  vi mysql
+  127  sd mysql
+  128  vi my.cnf
+  129  cd /etc/
+  130  vi my.cnf
+  131  systemctl restart mysql
+  132  mysql -u root -p
+  133  source activate django
+  134  sudo django
+  135  source activate nginx
+  136  cd nginx
+  137  cd /etc
+  138  ls
+  139  cd nginx/
+  140  ls
+  141  pwd
+  142  vi nginx.conf.default
+  143  vi nginx.conf
+  144  cd /usr/share
+  145  ls
+  146  cd nginx
+  147  ll
+  148  mkdir www
+  149  ll
+  150  chown -R jhyu:jhyu www
+  151  ll
+  152  cd www
+  153  ls
+  154  ll
+  155  cd web-project
+  156  systemctl restart nginx
+  157  netstat -tnlp
+  158  clear
+  159  cd
+  160  ls
+  161  cd/etc
+  162  cd /etc
+  163  cd nginx
+  164  ls
+  165  vi nginx conf
+  166  vi nginx.conf default
+  167  history
+  168  vi nginx.conf
+  169  systemctl restart nginx
+  170  ls
+  171  cd/usr/share/nginx/www
+  172  cd /usr/share/nginx/www
+  173  cd ..
+  174  ls
+  175  vi nginx.conf default
+  176  cd/usr/share/nginx
+  177  ls
+  178  cd www
+  179  cd web-project/
+  180  ls
+  181  nginx.cof
+  182  cd ..
+  183  ls
+  184  cd etc
+  185  cd nginx
+  186  ls
+  187  vi nginx.conf
+  188  systemctl restart nginx
+  189  vi nginx.conf
+  190  systemctl start nginx
+  191  vi nginx.conf
+  192  systemctl start nginx
+  193  vi nginx.conf
+  194  ls
+  195  vi nginx.conf
+  196  systemctl start nginx
+  197  vi nginx.conf
+  198  systemctl start nginx
+  199  vi nginx.conf.default 
+  200  cd conf.d
+  201  ls
+  202  cd ..
+  203  vi nginx.conf.default 
+  204  vi nginx.conf
+  205  systemctl start nginx
+  206  vi nginx.conf
+  207  ls
+  208  cd /usr/share/nginx/www
+  209  ls
+  210  cd /usr/share/nginx/www/web-project
+  211  ls
+  212  cd /etc/nginx/
+  213  vi nginx.conf
+  214  vi nginx.conf.default 
+  215  netstat -flnp
+  216  netstat -fnpl
+  217  netstat -fnlp
+  218  systemctl restart nginx
+  219  netstat -fnlp
+  220  netstat -flnp
+  221  netstat -flpn
+  222  netstat -tnlp
+  223  systemctl start nginx
+  224  systemctl stop nginx
+  225  systemctl start nginx
+  226  vi nginx.conf
+  227  systemctl start nginx
+  228  vi nginx.conf
+  229  systemctl start nginx
+  230  systemctl stop nginx
+  231  systemctl restart nginx
+  232  systemctl status nginx
+  233  systemctl restart nginx
+  234  vi nginx.conf
+  235  systemctl restart nginx
+  236  vi nginx.conf
+  237  systemctl status nginx
+  238  vi nginx.conf
+  239* c
+  240  systemctl restart nginx
+  241  vi nginx.conf
+  242  systemctl restart nginx
+  243  systemctl status nginx
+  244  history
+
+
+>>>한글로 바꾸는 작업
+include /etc/nginx/conf.d/*.conf;
+    charset          utf-8;
+    server {
+        charset      utf-8;
+
+>>>포트8080으로바꾸기
+
+[root@localhost nginx]# systemctl stop nginx
+[root@localhost nginx]# vi nginx.conf
+[root@localhost nginx]# 
+[root@localhost nginx]# systemctl start nginx
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------(그냥 앞에꺼 같이 기록)
+   89  ls -al sudoers
+   90  chmod +w sudoers
+   91  ls -al sudoers
+   92  vi sudoers
+   93  ls -al sudoers
+   94  chmod 440 sudoers
+   95  ls -al sudoers
+   96  whoami
+   97  ssh jhyu@ 192.168.56.101
+   98  ssh jhyu@192.168.56.101
+   99  cd /etc
+  100  ls
+  101  ls -al sudoers
+  102  chmod +w sudoers
+  103  vi sudoers
+  104  chmod -w sudoers
+  105  su - jhy
+  106  su - jhyu
+  107  exit
+  108  su
+  109  su jhyu
+  110  mysql -u root -p
+  111  myaql -u bigdata -p
+  112  su mysql
+  113  show database
+  114  clear
+  115  q
+  116  cd ..
+  117  mysql -u root -p
+  118  mysql -u bigdata -p
+  119  mysql -u root -p
+  120  cd
+  121  shutdown
+  122  cd /etc/mysql
+  123  cd /
+  124  find .-name my.cnf
+  125  find . -name my.cnf
+  126  vi mysql
+  127  sd mysql
+  128  vi my.cnf
+  129  cd /etc/
+  130  vi my.cnf
+  131  systemctl restart mysql
+  132  mysql -u root -p
+  133  source activate django
+  134  sudo django
+  135  source activate nginx
+  136  cd nginx
+  137  cd /etc
+  138  ls
+  139  cd nginx/
+  140  ls
+  141  pwd
+  142  vi nginx.conf.default
+  143  vi nginx.conf
+  144  cd /usr/share
+  145  ls
+  146  cd nginx
+  147  ll
+  148  mkdir www
+  149  ll
+  150  chown -R jhyu:jhyu www
+  151  ll
+  152  cd www
+  153  ls
+  154  ll
+  155  cd web-project
+  156  systemctl restart nginx
+  157  netstat -tnlp
+  158  clear
+  159  cd
+  160  ls
+  161  cd/etc
+  162  cd /etc
+  163  cd nginx
+  164  ls
+  165  vi nginx conf
+  166  vi nginx.conf default
+  167  history
+[root@localhost nginx]# vi nginx.conf
+[root@localhost nginx]# systemctl restart nginx
+[root@localhost nginx]# ls
+[root@localhost nginx]# cd /usr/share/nginx/www
+[root@localhost www]# cd ..
+[root@localhost nginx]# ls
+
+

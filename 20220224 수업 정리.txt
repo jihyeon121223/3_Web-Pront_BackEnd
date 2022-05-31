@@ -1,0 +1,204 @@
+#####source 설치 작업
+  #source.zip을 받아서 파일질라에서 가상으로 옮긴다.
+
+  #유저서버에 접속해서 코드를 친다.
+   sudo yum install unzip
+   unzip source.zip
+   mkdir web_work
+   cp -r source ./web_work
+   cd web_work
+
+######장고 설치 작업
+  #아나콘다 설치
+   conda create -n webapp
+   cd ../
+   cd anaconda3/
+   cd envs
+   cd webapp
+   cd
+   conda activate webapp
+   conda deactivate
+   source activate webapp
+   conda install django
+   cd web_work
+   django-admin startproject  mysite
+   cd mysite
+
+#####폴더 구조 구경잼~
+   settings,urls가 중요한 파일이다
+   settings.py에서 ALLOWED_HOSTS에 '192.168.56.101' 삽입
+
+root를 켜서
+cd /etc
+vi hosts
+127.0.0.1 localhost
+192.168.56.101 mysite.com
+
+ yum install tree
+tree
+
+
+
+-----------------------------()()()()
+
+sudo systemctl start httpd
+ll
+
+python manage.py runserver 0.0.0.0:8000
+(./ manage.py runserver 0.0.0.0:8000 해도 됨)
+
+>>>install은 아이디 상관없이 그냥 깔아도 적용된다>>>
+
+최상위폴더가 manage.py
+./manage.py startapp poll  상위로 파일 올림. 이제 다양한 앱을 만들 수 있다.
+view.py 가 가장 중요하다 어떻게 돌아가는지 설명하는것
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]   ###폴을 찾아가는 방식, 이런 표현방법으로 집어넣으면 poll로 연결(?)
+
+--------------------------------------()()()()()
+templete/
+mkdir polls
+cp *.html polls
+cd polls
+ls
+pwd
+cd ..
+ls
+rm -rf polls
+
+
+----------site
++
+당신이 좋아하는 취미는 무엇입니까?
+
+-----------서버다운
+...8000 
+-----site 
+mysite.com:8000/polls
+-------------()()()()()mysite삭제 후 다시 깔음
+ 426  source activate webapp
+  427  conda install django
+  428  pwd
+  429  cd web_work
+  430  ls
+  431  django-admin startprojet mysite
+  432  pwd
+  433  ds ~
+  434  cd ~
+  435  mkdir web_work
+  436  django-admin startproject  mysite
+  437     cd mysite
+  438  cd
+  439  cd web_work/
+  440  cd mysite
+  441  tree
+  442  sudo systemcrl start httpd
+  443  sudo systemctl start httpd
+  444  ll
+  445  python manage.py
+  446  python manage.py runserver 0.0.0.0:8000
+  447  tree
+  448  ls
+  449  ll
+  450  python manage.py runserver 0.0.0.0:8000
+  451  pwd
+  452  ./manage.py startapp poll
+  453  ls
+  454  ./manage.py runserver 0.0.0.0:8000
+  455  ls
+  456  rm -rf poll
+  457  ./manage.py startapp polls ###polls 파일을 만드는것임! 새로운 페이지를 넣을 때 쓰나봄?
+  458  ls
+  459  ./manage.py createsuperuser
+  460  ./manage.py runserver 0.0.0.0:8000
+  461  ./manage.py createsuperuser
+  462  ./manage.py makemigration polls
+  463  ./manage.py makemigrations polls
+  464  ./manage.py runserver 0.0.0.0:8000
+  465  ls
+  466  cat db.sqlite3
+  467  ll
+  468  ./manage.py makemigration polls
+  469* ./
+  470  ./manage.py makemigrations
+  471  ./manage.py makemigrte
+  472  ./manage.py migrte
+  473  ./manage.py migrate
+  474  ./manage.py createsuperuser
+  475  yjh6234
+  476  yjh6234@naver.com
+  477  ./manage.py startapp intro
+  478  ./manage.py runserver 0.0.0.0:8000
+  479  history
+  480  ./manage.py runserver 0.0.0.0:8000
+  481  hostory
+  482  history
+  483  ./manage.py migrate
+  484  cd ..
+  485  cd mysite
+  486  ./manage.py migrate
+  487  ls
+  488  cd ..
+  489  ls
+  490  rm -rf mysite
+  491  django-admin startproject mysite
+  492  ls
+  493  cd mysite
+  494  ls
+  495  rm -rf mysite
+  496  mv ch3 mysite
+  497  ls
+  498  ./manage.py makemigrations polls
+  499  ls
+  500  cd mysite
+  501  ls
+  502  cd ..
+  503  ls
+  504  cd ..
+  505  ls
+  506  rm -rf mysite
+  507  ls
+  508  cd source
+  509  ls
+  510  cd RedBook/
+  511  ls
+  512  cp ch3 ../../
+  513  cp -r ch3 ../../
+  514  cd ../../
+  515  ls
+  516  mv ch3 mysite
+  517  ls
+  518  cd mysite
+  519  ls
+  520  ./manage.py migrate
+  521  ;s
+  522  ls
+  523  ll
+  524  c./manage.py
+  525  ./manage.py
+  526  chmod 777 manage.py
+  527  ./manage.py migrate
+  528  ./manage.py migration
+  529  ls
+  530  ./manage.py migration
+  531  ./manage.py makemigrations 
+  532  ./manage.py
+  533  ll
+  534  python manage.py runserver 0.0.0.0:8000
+  535  ./manage.py
+  536  ll
+  537  python manage.py migrate
+  538  ls
+  539  python manange.py createsuperuser
+  540  python manage.py runserver 0.0.0.0:8000
+  541  python manage.py crcreatesuperuser
+  542  python manage.py createsuperuser
+  543  python manage.py runserver 0.0.0.0:8000
+  544  history
+------------------------------>>>>>>>>>>>>>>
+
+이미지옮
+mv 

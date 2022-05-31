@@ -1,0 +1,18 @@
+#param1{
+    background-color: antiquewhite;
+}
+#param2{
+    background-color: aquamarine;
+    text-align: center;
+    color: antiquewhite;
+    border: 2px solid red;
+    border-radius: 5px;
+}
+body{
+    margin: 100px 150px 100px 80px;
+    /*background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSICyZ7UNBvXmn_HDZ3uF4tuqRGClqDPoEPkg&usqp=CAU);*/
+    background-repeat: no-repeat;
+}
+.col-2{
+    border-style:dotted dashed ;
+}

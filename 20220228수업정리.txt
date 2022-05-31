@@ -1,0 +1,120 @@
+시작하기 전 확인 할 것
+1. python 버전
+2. conda에서 (가상환경)독립환경 설정
+3. --web 가상환경
+conda create -n webpython=3.9
+conda activate web
+python --version
+4. django -- 설치
+5.  conda install django
+6. -- web 기본 디렉토리 생성
+mkdir ~/www
+cd ~/www
+-- 장고 프로젝트(웹프로젝트)생성
+django-admin startproject [+웹사이트명]
+cd [blog]
+tree --웹사이트의 뼈대 확인
+python manage.py startapp intro
+
+
+코딩 - vscode로 접속
+19. -- settings.py
+ALLOWED_HOSTS = ['192.168.56.101','mysite.com'] ## ip나 도메인메인서버 넣어서 허락해주는거
+LANGUAGE_CODE = 'ko-kr'
+TIME_ZONE = 'Asia/Seoul'
+-- runserver
+python manage.py runserver 0.0.0.0:8080
+
+--Model
+데이터가져오기
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
+name:
+email:
+password:
+
+---------------------------------settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'databasename',
+        'USER': 'user name',
+        'PASSWORD': 'mysql password',
+        'HOST': 'host ip',
+        'PORT': '3306',
+    }
+}
+------------------------------------
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blog',
+        'USER': 'bigdata',
+        'PASSWORD': 'Bigdata123!!',
+        'HOST': '192.168.56.101',
+        'PORT': '3306',
+    }
+}
+------------------------------------
+
+su - root 
+cd log
+
+------------------------mysql
+conda install mysqlclient (포트 다른걸로 접속하려고 깔음)
+python manage.py makemigrations
+python manage.py migrate
+
+-----------------------------(없애고 다시 해보기)
+(web) [jhyu@localhost www]$ rm -rf blog
+(web) [jhyu@localhost www]$ django-admin startproject project1
+(web) [jhyu@localhost www]$ ls
+project1
+(web) [jhyu@localhost www]$ cd project1
+(web) [jhyu@localhost project1]$ tree
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------
+python manage.py createsuperuser
+...
+
+python manage.py runserver 0.0.0.0:8001
+
+
+
+
+HTML: HyperText Markup Language
+
+href: hypertext reference 
+rel: the relationship that the linked resource has to the document from which it’s referenced.
+css: Cascading Style Sheets
+
+
+
+
+
+
+
+
+

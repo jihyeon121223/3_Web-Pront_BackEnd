@@ -1,0 +1,71 @@
+import random
+a1=random.choice(name)
+a2=random.choice(name)
+def congratuation(name):
+    print('총'+str(len(name))+'분의 학생이 존재합니다')
+    print(a1+'님')
+    print(a2+'님')
+    print('이 선택되었습니다 축하합니다')
+
+
+def welcome(x):
+    print(f'총{len(x)}명의 학생이 존재합니다')
+    while True: #와일은 다 고르고 어떨 때 정지키겠다는 뜻
+        choice1=random.choice(x)
+        print(f'{choice1}님')
+        x.remove(choice1) #뽑히면 없앰
+        if len(x) == 2:
+            break
+    print('이 선택되었습니다 축하합니다')
+
+
+name=['김','이','박','서']
+
+def welcome(x):
+    print('총 {}명의 학생이 존재합니다'.format(len(x)))
+    while True:
+        choice1=random.choice(x)
+        print('{}님'.format(choice1))
+        choice2=random.choice(x)
+        if choice1 != choice2:
+            print('{}님'.format(choice2))
+            print('이 선택되었습니다 축하합니다')
+            break
+        else:#같은거 뽑혔을 때
+            tmp_x=[i for i in x if i != choice1]
+            choice2=random.choice(tmp_x)
+            print('{}님'.format(choice2))
+            print('이 선택되었습니다 축하합니다')
+            break
+
+def 복원(x,n):
+    result = []
+    for i in range(n):
+        result.append(random.choice(x))
+    return result
+
+
+def welcome(name):
+    print(f'총 {len(name)}명의 학생이 존재합니다')
+    x=name.copy()
+    choice = random.choice(x)
+    print(f'{choice}님')
+    x.remove(choice)
+    choice=random.choice(x)
+    print(f'{choice}님')
+    print('이 선택되었습니다 축하합니다')
+
+
+def welcome_n(name,n):
+    x=name.copy() #데이터의 원본을 보존하기 위해 데이터를 복사해두는 것
+    if len(x) < n:
+        n=len(x)
+        return print(f'학생부의 총 학생은 {len(x)}인데 입력한 수는{n}입니다' )
+    result=[]
+    cnt=1
+    while cnt<=n: #조건에 안맞는 값 들어오면 에러 >>> 에러 안나게 해보기
+        choice=random.choice(x)
+        result.append(choice)
+        x.remove(choice)
+        cnt += 1
+    return result
